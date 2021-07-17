@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg, roomId);
   });
 });
-server.listen(3000)
+server.listen(process.env.PORT || 3000)
 function getUniqueId() {
   // body...
 
