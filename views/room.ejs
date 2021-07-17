@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socket.IO chat</title>
     <style>
       body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; bottom: 0; position: absolute; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
       #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
       #input:focus { outline: none; }
       #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
 
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
+      #messages > li:nth-child(odd) { background: #336; }
+      #mainBody {width: 600px; height: 600px; background-color: #333; color: #fff; position: relative; margin: auto;} 
+      #newRoom {padding: 20px 20px; background-color: #333; color: aquamarine; text-decoration: none;}
+      h1 {color: aquamarine;}
+      #header {width: 100%; height: 200px; top: 0; text-align: center; position: relative;}
+      @media only screen and (max-width: 600px) {
+        #mainBody {
+          width: 100%;
+          min-height: 600px;
+          max-height: 100%;
+          position: absolute;
+        }
+      }
     </style>
   </head>
   <script>
     const ROOM_ID = "<%= roomId %>"
   </script>
   <body>
+   <div id="header">
+    <h1>Real-Time Chat Room.</h1>
+    <h6>Share your room link with your friends.</h6>
+    <a href="http://safe-citadel-19982.herokuapp.com/" id="newRoom" target="_blank">New Room</a>
+   </div>
+   <div id="mainBody">
     <ul id="messages"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" placeholder="Type something ...."/><button>Send</button>
     </form>
+   </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
